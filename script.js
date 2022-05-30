@@ -20,18 +20,18 @@ function menu_toggle() {
 hamburgerButton.addEventListener("click",menu_toggle)
 
 //Fonctionnalité 3 :
-let firstCard = document.querySelector('div.album div.card');
-let buttonEditFirstCard = firstCard.querySelector('div.btn-group').lastElementChild
+let HTMLCard = document.querySelector('div.album div.card');
+let buttonEditFirstCard = HTMLCard.querySelector('div.btn-group').lastElementChild
 
 function colorToRed() {
-  firstCard.style.color="red"
+  HTMLCard.style.color="red"
 }
 
 buttonEditFirstCard.addEventListener('click',colorToRed)
 
 //Fonctionnalité 4 :
 let secondCard = document.querySelectorAll('div.album div.card')[1];
-let buttonEditSecondCard = secondCard.querySelector('div.album div.btn-group').lastElementChild
+let buttonEditSecondCard = secondCard.querySelector('div.album div.btn-group').lastElementChild;
 
 function switchBlackgreen() {
   if (secondCard.style.color === "green") {
@@ -41,11 +41,11 @@ function switchBlackgreen() {
   }
 }
 
-buttonEditSecondCard.addEventListener('click',switchBlackgreen)
+buttonEditSecondCard.addEventListener('click',switchBlackgreen);
 
 // Fonctionnalité 5 :
-let bootstrapLink = document.getElementsByTagName('link')[0]
-let navbar = document.querySelector('.navbar')
+let bootstrapLink = document.getElementsByTagName('link')[0];
+let navbar = document.querySelector('.navbar');
 
 function switchBootstrap() {
   if (bootstrapLink.disabled) {
@@ -55,5 +55,49 @@ function switchBootstrap() {
   }
 }
 
-navbar.addEventListener('dblclick',switchBootstrap)
+navbar.addEventListener('dblclick',switchBootstrap);
+
 // Fonctionnalité 6 :
+let viewButtons = document.querySelectorAll('div.album div.col-md-4 div.btn-group .btn-success')
+
+viewButtons.forEach(item => {item.addEventListener('mouseenter', event => {
+  let card = item.parentElement.parentElement.parentElement.parentElement.parentElement
+  card.querySelector('.card-text').classList.toggle('collapse');
+  if (card.querySelector('.card-img-top').style.width != "20%") {
+    card.querySelector('.card-img-top').style.width = "20%";
+  } else {
+    card.querySelector('.card-img-top').style.width = "100%"
+  }
+})})
+
+// Fonctionnalité 7 :
+let rightArrowBtn = document.querySelector('a.btn-secondary');
+
+function lastToFirst() {
+  let firstCard = document.querySelector('div.album div.row').firstElementChild;
+  let lastCard = document.querySelector('div.album div.row').lastElementChild;
+  lastCard.remove();
+  firstCard.parentNode.insertBefore(lastCard,firstCard);
+}
+
+rightArrowBtn.addEventListener('click',lastToFirst);
+
+// Fonctionnalité 8 :
+let leftArrowBtn = document.querySelector('a.btn-primary')
+
+function insertAfter(newNode, existingNode) {
+  existingNode.parentNode.insertBefore(newNode, existingNode.nextSibling);
+}
+
+function firstTolast() {
+  let firstCard = document.querySelector('div.album div.row').firstElementChild;
+  let lastCard = document.querySelector('div.album div.row').lastElementChild;
+  firstCard.remove();
+  insertAfter(firstCard,lastCard);
+}
+
+leftArrowBtn.addEventListener('click',function (event) {
+  event.preventDefault();
+  firstTolast()}); 
+
+// Fonctionnalité 9 :
